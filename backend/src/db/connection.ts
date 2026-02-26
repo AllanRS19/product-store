@@ -10,7 +10,12 @@ if (!DATABASE_URL) {
 }
 
 // Initialize PostgreSQL connection pool
-const pool = new Pool({ connectionString: DATABASE_URL });
+const pool = new Pool({
+    connectionString: DATABASE_URL,
+    connectionTimeoutMillis: 10_000,
+    idleTimeoutMillis: 30_000,
+    max: 20
+});
 
 pool.on("connect", () => {
     console.log("Database connected successfully");
